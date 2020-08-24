@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conway's Game of Life</title>
+</head>
+
+<body>
+    <h2>
+        Conway's Game of Life
+    </h2>
+    <div id="headingDiv">
+        <span class="left">
+            Born Rule:
+            <input type="text" id="bornInput" class="textInput" value="3">
+            Survive Rule:
+            <input type="text" id="surviveInput" class="textInput" value="23">
+
+        </span>
+        <span class="right">
+            Population: <span id="population">0</span>
+            Generation: <span id="generation">0</span>
+        </span>
+    </div>
+    <div id="canvasDiv">
+        <canvas width="840" height="640" id="canvas">
+    </div>
+    <div id="controlDiv">
+        <input type="button" id="nextButton" value="Next State">
+        <input type="button" id="startButton" value="Start">
+        <input type="button" id="fasterButton" value="Faster">
+        <input type="button" id="slowerButton" value="Slower">
+        <input type="button" id="clearButton" value="Clear">
+        <input type="button" id="randomButton" value="Random">
+
+        <select id="selectInput">
+
+        </select>
+    </div>
+    <div id="wikipediaDiv">
+        See The Rules and More about The Game Here
+        <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Wikipedia</a>
+    </div>
+</body>
+
+</html>
