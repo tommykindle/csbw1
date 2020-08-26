@@ -226,13 +226,79 @@ class Game {
     // next
 
     next() {
+        let bornList = [];
+        let killList = [];
+        for (let i = 0; i < cols; i++) {
+            for (let j = 0; j < rows; j++) {
+                let cell = this.array[i][j];
+                let n = this.neighborNumber([i, j]);
+                if (!cell.living && this.bornRule.indexOf(n) >= 0) {
+                    bornList.push(cell);
+                }
+                else if (cell.living && this.surviveRule.indexOf(n) == -1) {
+                    killList.push(cell);
+                }
+                else {
+                    cell.color = cell.living ? livingColor : deadColor;
+                    cell.draw();
+                }
+            }
+        }
+        killList.forEach(cell => {
+            cell.kill();
+            cell.draw();
+        })
+        bornList.forEach(cell => {
+            cell.born();
+            cell.draw();
+        })
+        if (bornList.length == 0 && killList.length == 0) {
+            this.stop();
+            return;
+        }
+        generation.textContent++;
+    }
 
+    neighborNumber(coord) {
+        return this.livingNeighbors(coord).length;
+    }
+
+    livingNeighbors(coord) {
+        return this.neighbors(coord).filter(coord => {
+            let i = coord[0];
+            let j = coord[1];
+            return this.array[i][j].living;
+        })
+    }
+
+    neighbors(coord) {
+        let i = coord[0];
+        let j = coord[1];
+        let list = [];
+        let x;
+        let y;
+        for (let s = -1; s <= 1; s++) {
+            for (let t = -1; t <= 1; t++) {
+                if (s != 0 || t != 0) {
+                    x = (i + s + cols) % cols;
+                    y = (j + t + rows) % rows;
+                    list.push([x, y])
+                }
+            }
+        }
+        return list;
     }
 
     // game loop
 
     gameloop() {
+        if (this.running == true) {
+            setTimeout(() => {
 
+                this.next();
+                requestAnimationFrame(this.gameloop.bind(this))
+            }, this.wait);
+        }
     }
 }
 
